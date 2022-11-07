@@ -1,4 +1,4 @@
-package ru.com.simsgr.data.storage
+package ru.com.simsgr.data.storage.interfaces
 
 import ru.com.simsgr.domain.models.CurrentUser
 

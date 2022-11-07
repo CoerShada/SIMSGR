@@ -14,6 +14,6 @@ class VMFUsers(usersRepository: IUserRepository): ViewModel() {
     var users = MutableLiveData<List<OtherUser>>()
 
     fun getUsers(token: Token, included: String){
-        ucGetUsers.execute(token = token, included = included,result = users)
+        users.value = ucGetUsers.execute(token = token, included = included)
     }
 }

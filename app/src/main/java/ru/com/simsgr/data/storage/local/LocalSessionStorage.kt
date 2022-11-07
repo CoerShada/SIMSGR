@@ -1,9 +1,10 @@
-package ru.com.simsgr.data.storage
+package ru.com.simsgr.data.storage.local
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
+import ru.com.simsgr.data.storage.interfaces.ISessionStorage
 import ru.com.simsgr.domain.models.CurrentUser
 
 const val SHARED_PREFERENCES_NAME: String = "main_prefs"

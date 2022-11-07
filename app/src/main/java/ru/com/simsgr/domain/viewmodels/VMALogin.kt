@@ -3,6 +3,9 @@ package ru.com.simsgr.domain.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ru.com.simsgr.domain.models.AuthData
 import ru.com.simessenger.domain.usecases.UCLoginUser
 import ru.com.simsgr.domain.models.CurrentUser
@@ -13,8 +16,6 @@ import ru.com.simsgr.domain.usecases.UCRegisterUser
 import ru.com.simsgr.domain.usecases.UCSaveUserForLocal
 
 class VMALogin(usersRepository: IUserRepository, sessionRepository: ISessionRepository): ViewModel() {
-
-
     private val uCLoginUser = UCLoginUser(usersRepository)
     private val uCRegisterUser = UCRegisterUser(usersRepository)
     private val uCSaveUserForLocal = UCSaveUserForLocal(sessionRepository)
@@ -24,11 +25,12 @@ class VMALogin(usersRepository: IUserRepository, sessionRepository: ISessionRepo
     var user = MutableLiveData<CurrentUser>()
 
     fun login(authData: AuthData){
-        uCLoginUser.execute(authData, user)
+        user.value = uCLoginUser.execute(authData)
     }
 
     fun register(authData: AuthData) {
-        uCRegisterUser.execute(authData, user)
+        user.value = uCRegisterUser.execute(authData)
+
     }
 
     fun saveCurrentUser() {

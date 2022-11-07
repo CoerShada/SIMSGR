@@ -1,11 +1,11 @@
-package ru.com.simsgr.domain.repositories
+package ru.com.simsgr.data.storage.interfaces
 
 import androidx.lifecycle.MutableLiveData
 import ru.com.simsgr.domain.models.Token
 import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.models.OtherUser
 
-interface IUserRepository {
+interface IUserStorage{
 
     fun register(user: CurrentUser): CurrentUser
 
@@ -13,7 +13,7 @@ interface IUserRepository {
 
     fun update(user: CurrentUser): CurrentUser
 
-    fun getAllUsers(token: Token, included: String): List<OtherUser>
+    fun getUsers(token: Token, included: String): List<OtherUser>
 
     fun logout(token: Token)
 

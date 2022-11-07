@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_menuFragment_to_usersFragment"
             app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_allDialogsFragment"
+            app:destination="@id/allDialogsFragment" />
     </fragment>
     <fragment
         android:id="@+id/usersFragment"
@@ -21,5 +24,25 @@
         <action
             android:id="@+id/action_usersFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_usersFragment_to_dialogFragment"
+            app:destination="@id/dialogFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/allDialogsFragment"
+        android:name="ru.com.simsgr.presentation.AllDialogsFragment"
+        android:label="fragment_all_dialogs"
+        tools:layout="@layout/fragment_all_dialogs" >
+        <action
+            android:id="@+id/action_allDialogsFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_allDialogsFragment_to_dialogFragment"
+            app:destination="@id/dialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dialogFragment"
+        android:name="ru.com.simsgr.presentation.DialogFragment"
+        android:label="fragment_dialog"
+        tools:layout="@layout/fragment_dialog" />
 </navigation>

@@ -1,6 +1,6 @@
 package ru.com.simsgr.data.repositories
 
-import ru.com.simsgr.data.storage.ISessionStorage
+import ru.com.simsgr.data.storage.interfaces.ISessionStorage
 import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.repositories.ISessionRepository
 

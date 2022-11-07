@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import ru.com.simsgr.data.repositories.SessionRepository
 import ru.com.simsgr.data.repositories.UsersRepository
 
-import ru.com.simsgr.data.storage.LocalSessionStorage
-import ru.com.simsgr.data.storage.RemoteUserStorage
+import ru.com.simsgr.data.storage.local.LocalSessionStorage
+import ru.com.simsgr.data.storage.remote.RemoteUserStorage
 import ru.com.simsgr.domain.viewmodels.VMALogin
 
 class VMALoginFactory(val context: Context): ViewModelProvider.Factory {

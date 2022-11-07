@@ -6,16 +6,17 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class UsersService {
-    companion object {
-        var API_URL : String = "http://212.75.210.227:8080"
-    }
-
-    val api : UsersAPI
+class Service private constructor() {
+    private val API_URL : String = "http://212.75.210.227:8080"
+    val api : API
 
     init {
         val retrofit = createRetrofit()
-        api = retrofit.create(UsersAPI::class.java)
+        api = retrofit.create(API::class.java)
+    }
+
+    companion object{
+        val intent = Service()
     }
 
     private fun createRetrofit(): Retrofit {
@@ -33,5 +34,6 @@ class UsersService {
         return OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build()
 
     }
+
 
 }
