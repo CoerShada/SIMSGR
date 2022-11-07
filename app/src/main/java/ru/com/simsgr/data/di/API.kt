@@ -33,7 +33,7 @@ interface API {
                     @Query("message")message: Message):Single<Message>
 
     @GET("/messenger/v1/messages")
-    fun getMessages(@Header("access_token")token: String, @Query("from")to: String,
+    fun getMessages(@Header("access_token")token: String, @Query("from")from: String,
                     @Query("limit")limit: Int, @Query("page")page: Int):Single<List<Message>>
 
 }

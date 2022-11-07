@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.com.simsgr.R
-import ru.com.simsgr.databinding.UserCardBinding
+import ru.com.simsgr.databinding.CardUserBinding
 import ru.com.simsgr.domain.models.OtherUser
 
 class UsersRVAdapter(): RecyclerView.Adapter<UsersRVAdapter.UserHolder>() {
@@ -13,7 +13,7 @@ class UsersRVAdapter(): RecyclerView.Adapter<UsersRVAdapter.UserHolder>() {
     var users: List<OtherUser> = listOf()
 
     class UserHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val binding = UserCardBinding.bind(view)
+        private val binding = CardUserBinding.bind(view)
 
         init {
             view.setOnClickListener(this)
@@ -21,7 +21,7 @@ class UsersRVAdapter(): RecyclerView.Adapter<UsersRVAdapter.UserHolder>() {
 
         fun bind(user: OtherUser){
 
-            binding.cUserTVName.text = user.login
+            binding.cUserTVUserName.text = user.login
         }
 
         override fun onClick(v: View) {
@@ -36,7 +36,7 @@ class UsersRVAdapter(): RecyclerView.Adapter<UsersRVAdapter.UserHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.user_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_user, parent, false)
         return UserHolder(view)
     }
 

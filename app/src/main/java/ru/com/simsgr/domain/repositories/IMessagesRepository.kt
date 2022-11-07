@@ -6,7 +6,7 @@ import ru.com.simsgr.domain.models.Token
 
 interface IMessagesRepository {
 
-    fun sendMessage(token: Token, message: Message, result: MutableLiveData<Message>)
+    fun sendMessage(token: Token, message: Message): Message
 
-    fun getUsersMessages(token: Token, to: String, limit: Int, page: Int, result: MutableLiveData<List<Message>>)
+    fun getUsersMessages(token: Token, to: String, limit: Int = Int.MAX_VALUE, page: Int = 0): List<Message>
 }

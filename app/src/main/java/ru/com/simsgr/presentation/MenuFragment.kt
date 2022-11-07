@@ -27,8 +27,13 @@ class MenuFragment : Fragment() {
     private fun setListeners(fragment: View){
 
         val bUsers = fragment.findViewById<Button>(R.id.fMenuBUsers)
+        val bDialogs = fragment.findViewById<Button>(R.id.fMenuBDialogs)
+
         bUsers.setOnClickListener {
             (this.activity as MainActivity).navController.navigate(R.id.action_menuFragment_to_usersFragment)
+        }
+        bDialogs.setOnClickListener {
+            (this.activity as MainActivity).navController.navigate(R.id.action_menuFragment_to_allDialogsFragment)
         }
 
     }
