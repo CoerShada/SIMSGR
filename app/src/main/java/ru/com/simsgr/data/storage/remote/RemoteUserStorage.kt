@@ -10,24 +10,24 @@ import ru.com.simsgr.domain.models.User
 class RemoteUserStorage: ARemoteStorage(), IUserStorage {
 
 
-    override fun register(user: CurrentUser): CurrentUser{
+    override suspend fun register(user: CurrentUser): CurrentUser{
         return service.api.register(user = user).subscribeOn(Schedulers.io()).blockingGet()
     }
 
-    override fun login(user: CurrentUser): CurrentUser{
+    override suspend fun login(user: CurrentUser): CurrentUser{
         return service.api.login(user = user).subscribeOn(Schedulers.io()).blockingGet()
     }
 
-    override fun update(user: CurrentUser): CurrentUser {
+    override suspend fun update(user: CurrentUser): CurrentUser {
         return service.api.update(user = user).subscribeOn(Schedulers.io()).blockingGet()
     }
 
-    override fun getUsers(token: Token, included: String): List<User> {
-        return service.api.getUsers(token = token.access, included = included).subscribeOn(Schedulers.io()).blockingGet()
+    override suspend fun getUsers(token: Token, included: String): List<User> {
+        return service.api.getUsers(token = token.access, included = included).
+                subscribeOn(Schedulers.io()).blockingGet()
     }
 
-    override fun logout(token: Token) {
+    override suspend fun logout(token: Token) {
         service.api.logout(token = token.access).subscribeOn(Schedulers.io()).blockingGet()
-
     }
 }

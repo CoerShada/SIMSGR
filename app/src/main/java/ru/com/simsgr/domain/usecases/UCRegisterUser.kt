@@ -7,10 +7,12 @@ import ru.com.simsgr.domain.models.CurrentUser
 
 class UCRegisterUser(private val remoteRepository: IUserRepository) {
 
-    fun execute(authData: AuthData) : CurrentUser {
+    suspend fun execute(authData: AuthData) : CurrentUser {
         val outgoingUser = CurrentUser(avatarUrl = "", id = 0, login = authData.login,
                                 password = authData.password, token = Token("", "")
         )
-        return remoteRepository.register(user = outgoingUser)
+        val user : CurrentUser = remoteRepository.register(user = outgoingUser)
+        user.password = authData.password
+        return user
     }
 }

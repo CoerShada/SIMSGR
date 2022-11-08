@@ -11,9 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.com.simsgr.R
-import ru.com.simsgr.domain.viewmodels.VMAMain
+import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.viewmodels.VMFAllDialogs
-import ru.com.simsgr.domain.viewmodels.factories.VMAMainFactory
 import ru.com.simsgr.domain.viewmodels.factories.VMFAllDialogsFactory
 import ru.com.simsgr.presentation.adapters.DialogsRVAdapter
 
@@ -26,8 +25,14 @@ class AllDialogsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragment: View = inflater.inflate(R.layout.fragment_all_dialogs, container, false)
-        viewModel = ViewModelProvider(this, VMFAllDialogsFactory())[VMFAllDialogs::class.java]
+        val fragment: View = inflater.inflate(
+            R.layout.fragment_all_dialogs,
+            container,
+            false
+        )
+        val user: CurrentUser = (activity as MainActivity).viewmodel.user.value!!
+        viewModel = ViewModelProvider(this,
+            VMFAllDialogsFactory(user, requireContext()))[VMFAllDialogs::class.java]
 
         init(fragment = fragment)
         setListeners(fragment = fragment)
@@ -42,10 +47,10 @@ class AllDialogsFragment : Fragment() {
         val manager = LinearLayoutManager(this.requireContext())
         rv.adapter = DialogsRVAdapter()
         rv.layoutManager = manager
-        updateData(fragment)
+
     }
 
-    private fun updateData(view: View){
+    private fun updateData(){
         viewModel.getUsersDialogs((activity as MainActivity).viewmodel.user.value!!)
 
     }
@@ -66,7 +71,7 @@ class AllDialogsFragment : Fragment() {
     private fun setListeners(fragment: View){
         val bSearch = fragment.findViewById<ImageButton>(R.id.fAllDialogsIBSearch)
         bSearch.setOnClickListener {
-            updateData(view = fragment)
+            updateData()
         }
     }
 }

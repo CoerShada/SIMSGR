@@ -2,6 +2,8 @@ package ru.com.simsgr.domain.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.models.Dialog
 import ru.com.simsgr.domain.repositories.IMessagesRepository
@@ -24,9 +26,9 @@ class VMFAllDialogs(messagesRepository : IMessagesRepository,
 
     var dialogs = MutableLiveData<List<Dialog>>()
 
-    fun getUsersDialogs(user: CurrentUser){
+    fun getUsersDialogs(user: CurrentUser) = viewModelScope.launch{
         val users = uCGetAllUsers.execute(user.token, "")
-        dialogs.value = uCGetUserDialogs.execute(user = user, users = users)
+        dialogs.value = uCGetUserDialogs.execute(users = users)
     }
 
 

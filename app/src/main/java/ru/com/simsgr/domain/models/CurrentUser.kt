@@ -8,7 +8,7 @@ class CurrentUser(
     id: Int,
     login: String,
     @SerializedName("password")
-    val password: String,
+    var password: String,
     @SerializedName("token")
     val token: Token
 ): User(id = id, login = login)

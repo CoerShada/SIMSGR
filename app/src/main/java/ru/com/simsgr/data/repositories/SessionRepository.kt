@@ -6,15 +6,15 @@ import ru.com.simsgr.domain.repositories.ISessionRepository
 
 
 class SessionRepository(private val storage: ISessionStorage): ISessionRepository {
-    override fun getCurrentUser(): CurrentUser? {
+    override suspend fun getCurrentUser(): CurrentUser? {
         return storage.getCurrentUser()
     }
 
-    override fun saveUser(user: CurrentUser): Boolean {
+    override suspend fun saveUser(user: CurrentUser): Boolean {
         return storage.saveUser(user)
     }
 
-    override fun delCurrentUser() {
+    override suspend fun delCurrentUser() {
         storage.delCurrentUser()
     }
 }

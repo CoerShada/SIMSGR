@@ -19,7 +19,7 @@ class LocalSessionStorage(context: Context): ISessionStorage {
     private val gson = Gson()
 
 
-    override fun getCurrentUser(): CurrentUser?{
+    override suspend fun getCurrentUser(): CurrentUser?{
         val json : String? = sharedPreferences.getString(SHARED_PREFERENCES_USER, "")
         if (json==null || json.isEmpty()){
             Log.d(LOG_TAG, "Authorised user not found [${json}]")
@@ -31,15 +31,15 @@ class LocalSessionStorage(context: Context): ISessionStorage {
         return gson.fromJson(json, CurrentUser::class.java)
     }
 
-    override fun saveUser(user: CurrentUser): Boolean {
+    override suspend fun saveUser(user: CurrentUser): Boolean {
         val success = sharedPreferences.edit().putString(SHARED_PREFERENCES_USER, gson.toJson(user)).commit()
         Log.d(LOG_TAG, "Save user has been ${if (success) "successes" else "thrown"}")
         return success
     }
 
     @SuppressLint("CommitPrefEdits")
-    override fun delCurrentUser() {
-        sharedPreferences.edit().remove(SHARED_PREFERENCES_USER)
+    override suspend fun delCurrentUser() {
+        sharedPreferences.edit().remove(SHARED_PREFERENCES_USER).apply()
     }
 
 

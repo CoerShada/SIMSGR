@@ -25,6 +25,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                tools:ignore="ImageContrastCheck"
                 tools:srcCompat="@drawable/ic_launcher_foreground" />
 
             <LinearLayout
@@ -36,14 +37,13 @@
                 <TextView
                     android:id="@+id/cDialogTVUserName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/cDialogTVLastMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    tools:ignore="TextContrastCheck" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -1,7 +1,10 @@
 package ru.com.simsgr.presentation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,15 +24,26 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         viewmodel = ViewModelProvider(this, VMALoginFactory(this))[VMALogin::class.java]
+        setListeners()
+        setObservers()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        viewmodel.authAuto()
+
+    }
+
+
+
+
+    private fun setListeners(){
         var bLogin: Button = findViewById(R.id.aMainBAuthorisation)
         var bRegister: Button = findViewById(R.id.aMainBRegistration)
 
 
         val tvLogin = findViewById<TextView>(R.id.aMainTVLogin)
         val tvPassword = findViewById<TextView>(R.id.aMainTVPassword)
-
-
         bLogin.setOnClickListener {
             val authData = AuthData(tvLogin.text.toString(), tvPassword.text.toString())
             viewmodel.login(authData = authData)
@@ -39,7 +53,10 @@ class LoginActivity : AppCompatActivity() {
             val authData = AuthData(tvLogin.text.toString(), tvPassword.text.toString())
             viewmodel.register(authData = authData)
         }
+    }
 
+
+    private fun setObservers(){
         viewmodel.user.observe(this){
             if (it!=null){
                 viewmodel.saveCurrentUser()
@@ -48,12 +65,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-
-        //viewmodel.authAuto()
     }
-
-
-
-
 
 }

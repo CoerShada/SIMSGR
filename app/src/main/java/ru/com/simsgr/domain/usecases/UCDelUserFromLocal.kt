@@ -5,7 +5,7 @@ import ru.com.simsgr.domain.repositories.ISessionRepository
 
 class UCDelUserFromLocal(private val repository: ISessionRepository) {
 
-    fun execute(){
+    suspend fun execute(){
         repository.delCurrentUser()
     }
 }

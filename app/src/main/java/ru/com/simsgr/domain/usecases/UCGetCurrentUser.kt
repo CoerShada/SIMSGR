@@ -5,7 +5,7 @@ import ru.com.simsgr.domain.repositories.ISessionRepository
 
 class UCGetCurrentUser(private val repository: ISessionRepository) {
 
-    fun execute(): CurrentUser?{
+    suspend fun execute(): CurrentUser?{
         return repository.getCurrentUser()
     }
 

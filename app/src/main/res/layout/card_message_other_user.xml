@@ -32,15 +32,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
-                android:gravity="right"
-                android:text="TextView" />
+                android:gravity="right" />
 
             <TextView
                 android:id="@+id/cMessageOtherUserMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="TextView"
                 android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
         </LinearLayout>

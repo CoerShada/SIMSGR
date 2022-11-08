@@ -2,6 +2,8 @@ package ru.com.simsgr.domain.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.com.simsgr.domain.models.*
 import ru.com.simsgr.domain.repositories.IMessagesRepository
 import ru.com.simsgr.domain.usecases.UCGetUsersDialogByOtherUserID
@@ -19,14 +21,16 @@ class VMFDialog(val user: User, messagesRepository: IMessagesRepository) : ViewM
     init {
         ucGetUsersMessagesByOtherUserID = UCGetUsersDialogByOtherUserID(messagesRepository)
         ucSendMessage = UCSendMessage(messagesRepository)
+
+        getActualDialog()
     }
 
-    fun getActualDialog(token: Token){
-        messages.value = ucGetUsersMessagesByOtherUserID.execute(token = token, otherUser = user)
+    fun getActualDialog() = viewModelScope.launch{
+        messages.value = ucGetUsersMessagesByOtherUserID.execute(otherUser = user)
     }
 
-    fun sendMessage(token: Token, message: Message){
-        val newMassage: Message = ucSendMessage.execute(token = token, message = message)
+    fun sendMessage(message: Message) = viewModelScope.launch {
+        val newMassage: Message = ucSendMessage.execute(message = message)
         messages.value = listOf(newMassage) + messages.value!!
     }
 }

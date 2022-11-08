@@ -4,10 +4,10 @@ import ru.com.simsgr.domain.models.CurrentUser
 
 interface ISessionStorage {
 
-    fun getCurrentUser(): CurrentUser?
+    suspend fun getCurrentUser(): CurrentUser?
 
-    fun saveUser(user: CurrentUser): Boolean
+    suspend fun saveUser(user: CurrentUser): Boolean
 
-    fun delCurrentUser()
+    suspend fun delCurrentUser()
 
 }

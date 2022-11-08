@@ -2,7 +2,6 @@ package ru.com.simsgr.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import ru.com.simsgr.R
+import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.models.Message
 import ru.com.simsgr.domain.models.User
-import ru.com.simsgr.domain.viewmodels.VMFAllDialogs
 import ru.com.simsgr.domain.viewmodels.VMFDialog
-import ru.com.simsgr.domain.viewmodels.factories.VMFAllDialogsFactory
 import ru.com.simsgr.domain.viewmodels.factories.VMFDialogFactory
-import ru.com.simsgr.presentation.adapters.DialogsRVAdapter
 import ru.com.simsgr.presentation.adapters.MessagesRVAdapter
 import java.util.*
 
@@ -35,14 +32,16 @@ class DialogFragment : Fragment() {
     ): View? {
         val fragment =  inflater.inflate(R.layout.fragment_dialog, container, false)
         val serializedUser = requireArguments().getString(OTHER_USER_KEY)
-        viewmodel = ViewModelProvider(this, VMFDialogFactory(Gson().fromJson(serializedUser,
-            User::class.java)))[VMFDialog::class.java]
+        val user: CurrentUser = (activity as MainActivity).viewmodel.user.value!!
+        val factory = VMFDialogFactory(user,
+            Gson().fromJson(serializedUser, User::class.java),
+            requireContext())
+        viewmodel = ViewModelProvider(this, factory)[VMFDialog::class.java]
 
         init(fragment = fragment)
         setListeners(fragment = fragment)
         onViewModelChanged(fragment = fragment)
-        viewmodel.getActualDialog((activity as MainActivity).viewmodel.user.value!!.token)
-        Log.d(javaClass.name, "View Created")
+
 
         return fragment
     }
@@ -53,17 +52,14 @@ class DialogFragment : Fragment() {
 
     private fun init(fragment: View){
         val rv: RecyclerView = fragment.findViewById(R.id.fDialogRVMessages)
-        var adapterLayout = LinearLayoutManager(this.requireContext())
+        val adapterLayout = LinearLayoutManager(this.requireContext())
         adapterLayout.reverseLayout = true
         rv.adapter = MessagesRVAdapter(otherUser = viewmodel.user)
         rv.layoutManager = adapterLayout
-        updateData()
+        viewmodel.getActualDialog()
     }
 
-    private fun updateData(){
-        viewmodel.getActualDialog((activity as MainActivity).viewmodel.user.value!!.token)
 
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun onViewModelChanged(fragment: View){
@@ -71,7 +67,6 @@ class DialogFragment : Fragment() {
             val rv: RecyclerView = fragment.findViewById(R.id.fDialogRVMessages)
             val adapter = (rv.adapter as MessagesRVAdapter)
             adapter.messages = it
-            Log.d(javaClass.name, "Adapter has been updated")
         }
 
     }
@@ -80,7 +75,8 @@ class DialogFragment : Fragment() {
         val bSend = fragment.findViewById<ImageButton>(R.id.fDialogIBSend)
         val currentUser = (activity as MainActivity).viewmodel.user.value!!
         bSend.setOnClickListener {
-            val text = fragment.findViewById<TextView>(R.id.fDialogETMessage).text.toString().trim()
+            val textView = fragment.findViewById<TextView>(R.id.fDialogETMessage)
+            val text = textView.text.toString().trim()
             if (text.isEmpty()) return@setOnClickListener
             val message = Message(id = -1,
                                   message = text,
@@ -89,8 +85,8 @@ class DialogFragment : Fragment() {
                                   date = Date().time,
                                   delivered = false
             )
-            viewmodel.sendMessage(token = currentUser.token, message = message)
-            Log.d(javaClass.name, "Message has been sent")
+            viewmodel.sendMessage(message = message)
+            textView.text = ""
 
         }
     }

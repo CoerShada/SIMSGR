@@ -5,7 +5,7 @@ import ru.com.simsgr.domain.repositories.ISessionRepository
 
 class UCSaveUserForLocal(private val repository: ISessionRepository) {
 
-    fun execute(user: CurrentUser): Boolean{
+    suspend fun execute(user: CurrentUser): Boolean{
         return repository.saveUser(user = user)
     }
 }
