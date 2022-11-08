@@ -5,14 +5,12 @@ import com.google.gson.annotations.SerializedName
 class CurrentUser(
     @SerializedName("avatar_url")
     var avatarUrl: String,
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("login")
-    val login: String,
+    id: Int,
+    login: String,
     @SerializedName("password")
     val password: String,
     @SerializedName("token")
     val token: Token
-)
+): User(id = id, login = login)
 
 

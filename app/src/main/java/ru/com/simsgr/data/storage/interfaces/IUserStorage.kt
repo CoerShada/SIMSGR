@@ -1,9 +1,8 @@
 package ru.com.simsgr.data.storage.interfaces
 
-import androidx.lifecycle.MutableLiveData
 import ru.com.simsgr.domain.models.Token
 import ru.com.simsgr.domain.models.CurrentUser
-import ru.com.simsgr.domain.models.OtherUser
+import ru.com.simsgr.domain.models.User
 
 interface IUserStorage{
 
@@ -13,7 +12,7 @@ interface IUserStorage{
 
     fun update(user: CurrentUser): CurrentUser
 
-    fun getUsers(token: Token, included: String): List<OtherUser>
+    fun getUsers(token: Token, included: String): List<User>
 
     fun logout(token: Token)
 

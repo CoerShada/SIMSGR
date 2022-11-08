@@ -1,11 +1,10 @@
 package ru.com.simsgr.data.repositories
 
-import androidx.lifecycle.MutableLiveData
 import ru.com.simsgr.data.storage.interfaces.IUserStorage
 import ru.com.simsgr.domain.models.Token
 import ru.com.simsgr.domain.repositories.IUserRepository
 import ru.com.simsgr.domain.models.CurrentUser
-import ru.com.simsgr.domain.models.OtherUser
+import ru.com.simsgr.domain.models.User
 
 class UsersRepository(private val storage: IUserStorage): IUserRepository {
 
@@ -21,7 +20,7 @@ class UsersRepository(private val storage: IUserStorage): IUserRepository {
         return storage.update(user = user)
     }
 
-    override fun getAllUsers(token: Token, included: String): List<OtherUser> {
+    override fun getAllUsers(token: Token, included: String): List<User> {
         return storage.getUsers(token = token, included = included)
     }
 

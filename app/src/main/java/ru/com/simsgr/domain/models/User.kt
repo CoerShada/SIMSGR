@@ -2,7 +2,7 @@ package ru.com.simsgr.domain.models
 
 import com.google.gson.annotations.SerializedName
 
-data class OtherUser(
+open class User(
     @SerializedName("id")
     var id: Int,
     @SerializedName("login")

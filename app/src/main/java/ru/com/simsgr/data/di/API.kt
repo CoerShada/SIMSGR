@@ -4,7 +4,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.models.Message
-import ru.com.simsgr.domain.models.OtherUser
+import ru.com.simsgr.domain.models.User
 
 
 interface API {
@@ -22,15 +22,15 @@ interface API {
     @GET("/user/v1/users")
     @Headers("accept: application/json")
     fun getUsers(@Header("access_token") token: String,
-                 @Query("included") included: String): Single<List<OtherUser>>
+                 @Query("included") included: String): Single<List<User>>
 
     @DELETE("/user/v1/users")
     fun logout(token: String): Single<Boolean> //Проверить
 
-    @GET("/messenger/v1/send")
+    @POST("/messenger/v1/send")
     @Headers("accept: application/json")
     fun sendMessage(@Header("access_token")token: String,
-                    @Query("message")message: Message):Single<Message>
+                    @Body message: Message):Single<Message>
 
     @GET("/messenger/v1/messages")
     fun getMessages(@Header("access_token")token: String, @Query("from")from: String,

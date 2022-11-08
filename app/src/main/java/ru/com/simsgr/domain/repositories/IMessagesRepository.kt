@@ -1,6 +1,5 @@
 package ru.com.simsgr.domain.repositories
 
-import androidx.lifecycle.MutableLiveData
 import ru.com.simsgr.domain.models.Message
 import ru.com.simsgr.domain.models.Token
 
