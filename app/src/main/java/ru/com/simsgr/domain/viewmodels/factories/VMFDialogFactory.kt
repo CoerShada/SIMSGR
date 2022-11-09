@@ -16,7 +16,7 @@ class VMFDialogFactory(val currentUser: CurrentUser, val otherUser: User, val co
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
         val remoteMessageStorage = RemoteMessageStorage(currentUser)
-        val localMessageStorage = LocalMessageStorage(context = context)
+        val localMessageStorage = LocalMessageStorage(context = context, user = currentUser)
 
 
         return VMFDialog(

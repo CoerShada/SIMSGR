@@ -37,7 +37,7 @@ class AllDialogsFragment : Fragment() {
         init(fragment = fragment)
         setListeners(fragment = fragment)
         onViewModelChanged(fragment = fragment)
-
+        updateData()
         return fragment
     }
 

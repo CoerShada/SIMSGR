@@ -1,9 +1,12 @@
 package ru.com.simsgr.data.storage.local
 
 import android.content.Context
+
 import ru.com.simsgr.data.room.MainDB
+import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.models.Message
-class LocalMessageStorage(context: Context) {
+
+class LocalMessageStorage(context: Context, private val user: CurrentUser) {
 
     private val database: MainDB
 
@@ -11,7 +14,7 @@ class LocalMessageStorage(context: Context) {
         database = MainDB.getDB(context)
     }
 
-    suspend fun sendMessage(message: Message){
+    fun saveMessage(message: Message){
         database.getDao().insertMessage(message)
     }
 
@@ -20,6 +23,10 @@ class LocalMessageStorage(context: Context) {
         limit: Int,
         page: Int
     ): List<Message> {
-        return database.getDao().getMessagesByCurrentUser(id = from.toInt())
+
+        return if (from.isNotEmpty())
+            database.getDao().getMessagesByCurrentUser(id1 = from.toInt(), user.id)
+        else
+            database.getDao().getMessagesByCurrentUser(user.id)
     }
 }

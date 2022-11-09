@@ -24,6 +24,8 @@ class MenuFragment : Fragment() {
     }
 
 
+
+
     private fun setListeners(fragment: View){
 
         val bUsers = fragment.findViewById<Button>(R.id.fMenuBUsers)

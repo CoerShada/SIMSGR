@@ -5,10 +5,10 @@ import ru.com.simsgr.domain.repositories.IMessagesRepository
 
 class UCGetUsersDialogByOtherUserID(private val repository: IMessagesRepository) {
 
-    suspend fun execute(otherUser: User): MutableList<Message> {
+    suspend fun execute(otherUser: User): List<Message> {
 
-        return repository.getUsersMessagesFromRemote(
+        return repository.getUsersMessagesFromLocal(
             from = otherUser.id.toString()
-        ).toMutableList()
+        )
     }
 }

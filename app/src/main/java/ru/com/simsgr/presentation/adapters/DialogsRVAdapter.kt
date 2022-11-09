@@ -3,10 +3,18 @@ package ru.com.simsgr.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.findFragment
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import ru.com.simsgr.R
 import ru.com.simsgr.databinding.CardDialogBinding
 import ru.com.simsgr.domain.models.Dialog
+import ru.com.simsgr.presentation.AllDialogsFragment
+import ru.com.simsgr.presentation.DialogFragment
+import ru.com.simsgr.presentation.MainActivity
+import ru.com.simsgr.presentation.UsersFragment
 
 class DialogsRVAdapter(): RecyclerView.Adapter<DialogsRVAdapter.DialogsHolder>() {
 
@@ -25,12 +33,12 @@ class DialogsRVAdapter(): RecyclerView.Adapter<DialogsRVAdapter.DialogsHolder>()
         }
 
         override fun onClick(v: View) {
-            /*val activity: RisksActivity = v.context as RisksActivity
-            val bundle = Bundle()
-            bundle.putInt("index", activity.risks[adapterPosition].id)
-            val fragment = SettingUpRiskFragment()
-            fragment.arguments = bundle
-            activity.replaceFragment(fragment)*/
+            val fragment = v.findFragment<AllDialogsFragment>()
+            val dialogs = fragment.viewModel.dialogs.value
+            val activity: MainActivity = v.context as MainActivity
+            activity.navController.navigate(R.id.action_allDialogsFragment_to_dialogFragment,
+                bundleOf(DialogFragment.OTHER_USER_KEY to Gson().toJson(dialogs!![adapterPosition].otherUser) )
+            )
         }
 
     }

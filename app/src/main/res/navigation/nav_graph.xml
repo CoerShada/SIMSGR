@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_menuFragment_to_allDialogsFragment"
             app:destination="@id/allDialogsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_loadFragment"
+            app:destination="@id/loadFragment" />
     </fragment>
     <fragment
         android:id="@+id/usersFragment"
@@ -45,4 +48,13 @@
         android:name="ru.com.simsgr.presentation.DialogFragment"
         android:label="fragment_dialog"
         tools:layout="@layout/fragment_dialog" />
+    <fragment
+        android:id="@+id/loadFragment"
+        android:name="ru.com.simsgr.presentation.LoadFragment"
+        android:label="fragment_load"
+        tools:layout="@layout/fragment_load" >
+        <action
+            android:id="@+id/action_loadFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
 </navigation>

@@ -10,9 +10,12 @@ class RemoteMessageStorage(private val user: CurrentUser): ARemoteStorage() {
         return service.api.sendMessage(token = user.token.access, message = message).subscribeOn(Schedulers.io()).blockingGet()
     }
 
-    fun getUsersMessages(from: String, limit: Int, page: Int): List<Message>
+    suspend fun getUsersMessages(from: String, limit: Int, page: Int): List<Message>
     {
         return service.api.getMessages(token = user.token.access, from = from, limit = limit, page = page).subscribeOn(Schedulers.io()).blockingGet()
+    }
 
+    suspend fun getNewMessages(): List<Message>{
+        return service.api.getNewMessages(user.token.access).subscribeOn(Schedulers.io()).blockingGet()
     }
 }

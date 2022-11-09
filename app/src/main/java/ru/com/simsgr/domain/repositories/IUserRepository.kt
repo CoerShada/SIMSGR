@@ -12,7 +12,7 @@ interface IUserRepository {
 
     suspend fun update(user: CurrentUser): CurrentUser
 
-    suspend fun getAllUsers(token: Token, included: String): List<User>
+    suspend fun getAllUsers(token: Token, included: String = ""): List<User>
 
     suspend fun logout(token: Token)
 

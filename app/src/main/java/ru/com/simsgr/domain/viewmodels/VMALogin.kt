@@ -1,19 +1,15 @@
 package ru.com.simsgr.domain.viewmodels
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.com.simsgr.domain.models.AuthData
-import ru.com.simsgr.domain.usecases.UCLoginUser
 import ru.com.simsgr.domain.models.CurrentUser
 import ru.com.simsgr.domain.repositories.ISessionRepository
 import ru.com.simsgr.domain.repositories.IUserRepository
-import ru.com.simsgr.domain.usecases.UCGetCurrentUser
-import ru.com.simsgr.domain.usecases.UCRegisterUser
-import ru.com.simsgr.domain.usecases.UCSaveUserForLocal
+import ru.com.simsgr.domain.usecases.*
 
 class VMALogin(usersRepository: IUserRepository, sessionRepository: ISessionRepository): ViewModel() {
     private val uCLoginUser = UCLoginUser(usersRepository)
@@ -38,7 +34,7 @@ class VMALogin(usersRepository: IUserRepository, sessionRepository: ISessionRepo
     }
 
     fun authAuto() = viewModelScope.launch{
-        var tempUser = ucGetCurrentUser.execute()
+        val tempUser = ucGetCurrentUser.execute()
         if (tempUser!=null){
             login(authData = AuthData(tempUser.login, tempUser.password))
         }

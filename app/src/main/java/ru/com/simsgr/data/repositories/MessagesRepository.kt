@@ -12,7 +12,7 @@ class MessagesRepository(
 {
     override suspend fun sendMessage(message: Message): Message {
         val editedMessage : Message = remoteMessageStorage.sendMessage(message = message)
-        localMessageStorage.sendMessage(message = editedMessage)
+        localMessageStorage.saveMessage(editedMessage)
         return editedMessage
     }
 
@@ -22,6 +22,15 @@ class MessagesRepository(
 
     override suspend fun getUsersMessagesFromLocal(from: String, limit: Int, page: Int): List<Message> {
         return localMessageStorage.getUsersMessages(from = from, limit = limit, page = page)
+    }
+
+    override suspend fun getNewMessagesFromRemote(): List<Message> {
+        return remoteMessageStorage.getNewMessages()
+    }
+
+    override suspend fun saveMessageInLocal(message: Message) {
+        localMessageStorage.saveMessage(message = message)
+
     }
 
 

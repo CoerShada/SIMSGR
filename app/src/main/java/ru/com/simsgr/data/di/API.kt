@@ -37,4 +37,6 @@ interface API {
     fun getMessages(@Header("access_token")token: String, @Query("from")from: String,
                     @Query("limit")limit: Int, @Query("page")page: Int):Single<List<Message>>
 
+    @GET("/messenger/v1/new_messages")
+    fun getNewMessages(@Header("access_token")token: String): Single<List<Message>>
 }

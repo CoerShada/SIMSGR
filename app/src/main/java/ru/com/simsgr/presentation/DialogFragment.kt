@@ -26,6 +26,10 @@ class DialogFragment : Fragment() {
 
     lateinit var viewmodel: VMFDialog
 
+    companion object{
+        const val OTHER_USER_KEY = "user"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,17 +50,12 @@ class DialogFragment : Fragment() {
         return fragment
     }
 
-    companion object{
-        const val OTHER_USER_KEY = "user"
-    }
-
     private fun init(fragment: View){
         val rv: RecyclerView = fragment.findViewById(R.id.fDialogRVMessages)
         val adapterLayout = LinearLayoutManager(this.requireContext())
         adapterLayout.reverseLayout = true
         rv.adapter = MessagesRVAdapter(otherUser = viewmodel.user)
         rv.layoutManager = adapterLayout
-        viewmodel.getActualDialog()
     }
 
 

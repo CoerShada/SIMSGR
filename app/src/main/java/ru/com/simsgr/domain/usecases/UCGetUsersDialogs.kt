@@ -10,15 +10,8 @@ class UCGetUsersDialogs(private val repository: IMessagesRepository) {
 
         val dialogs = mutableListOf<Dialog>()
 
-        /*Эта дрянь сделана так потому что API не может предоставить
-        список всех сообщений пользователя, параметр from является обязательным
-
-        P.S.
-        Мне стыдно
-        */
         users.forEach{
-            val messages = repository.getUsersMessagesFromRemote(
-                from = it.id.toString(), limit=1).toMutableList()
+            val messages = repository.getUsersMessagesFromLocal(from = it.id.toString(), limit=1).toMutableList()
             if (messages.isNotEmpty()) {
                 dialogs.add(Dialog(it,messages))
             }

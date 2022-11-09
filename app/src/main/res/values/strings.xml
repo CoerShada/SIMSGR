@@ -13,4 +13,5 @@
     <string name="new_dialog">New dialog</string>
     <string name="message">Message</string>
     <string name="you">You</string>
+    <string name="data_sync_please_wait">Data sync, please wait</string>
 </resources>
